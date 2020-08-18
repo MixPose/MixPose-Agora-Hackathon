@@ -1,0 +1,424 @@
+<!doctype html>
+<!--
+  Copyright 2015 Google Inc. All rights reserved.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+      https://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <meta name="format-detection" content="telephone=no">  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{metaTags.title}}</title> 
+  <meta name="description" content="{{metaTags.description}}" />  
+  <meta name="scheduleclassid" content="{{metaTags.scheduleclassid}}" /> 
+  <meta name="instructorid" content="{{metaTags.instructorid}}" /> 
+  <meta name="friendgroupid" content="{{metaTags.friendgroupid}}" /> 
+  <meta name="classtime" content="{{metaTags.classtime}}" /> 
+  <meta name="userid" content="{{metaTags.userid}}" />
+  <meta name="kickouttime" content="{{metaTags.kickouttime}}" /> 
+  <meta name="feedbacktime" content="{{metaTags.feedbacktime}}" /> 
+
+  <meta name="eventurl" content="{{metaTags.eventurl}}" /> 
+  <meta name="useai" content="{{metaTags.useai}}" /> 
+
+    <meta property="og:title" content="{{metaTags.description}}" />
+    <meta property="og:description" content="{{metaTags.description}}" />
+    <meta property="og:image" content="{{metaTags.backgroundurl}}" />
+    <meta property="og:url" content="{{metaTags.eventurl}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@mixpose" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="MixPose">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MixPose">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.css" rel="stylesheet"/>
+
+  <!-- App Styling -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+
+  <link href="https://cdn.jsdelivr.net/npm/video.js@7.8.3/dist/video-js.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.0/dist/videojs-hls-quality-selector.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/common.css" />
+  <link rel="stylesheet" href="/css/materialize.css" />
+  <link rel="stylesheet" href="/css/mixpose.css" />
+  <link rel="stylesheet" href="/css/videojs.css" />
+  <link rel="stylesheet" href="/css/rating.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@silvermine/videojs-chromecast@1.2.1/dist/silvermine-videojs-chromecast.css" />
+
+  <!-- Chromecast SDK -->
+  <script type="text/javascript" src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+
+<!--   <script src="//vjs.zencdn.net/7.8.2/video.min.js"></script>
+ -->
+  <!-- TODO: Enable First Input Delay polyfill library. -->
+  <!--  <script type="text/javascript">!function(n,e){var t,o,i,c=[],f={passive:!0,capture:!0},r=new Date,a="pointerup",u="pointercancel";function p(n,c){t||(t=c,o=n,i=new Date,w(e),s())}function s(){o>=0&&o<i-r&&(c.forEach(function(n){n(o,t)}),c=[])}function l(t){if(t.cancelable){var o=(t.timeStamp>1e12?new Date:performance.now())-t.timeStamp;"pointerdown"==t.type?function(t,o){function i(){p(t,o),r()}function c(){r()}function r(){e(a,i,f),e(u,c,f)}n(a,i,f),n(u,c,f)}(o,t):p(o,t)}}function w(n){["click","mousedown","keydown","touchstart","pointerdown"].forEach(function(e){n(e,l,f)})}w(n),self.perfMetrics=self.perfMetrics||{},self.perfMetrics.onFirstInputDelay=function(n){c.push(n),s()}}(addEventListener,removeEventListener);</script> -->
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="/__/firebase/7.17.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.17.0/firebase-analytics.js"></script>
+  <script src="/__/firebase/7.17.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.17.0/firebase-storage.js"></script>
+  <script src="/__/firebase/7.17.0/firebase-messaging.js"></script>
+  <script src="/__/firebase/7.17.0/firebase-database.js"></script>
+  <script src="/__/firebase/7.17.0/firebase-performance.js"></script>
+  <script src="/__/firebase/init.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@2.0.0/dist/tf-backend-wasm.js"></script>
+  <style>
+  .video-placeholder {
+    width: unset !important;
+  }
+  </style>
+</head>
+<body class="mixpose-theme lesson-page">
+</div>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=283674848424788&autoLogAppEvents=1" nonce="64d3EoCt"></script>
+  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+    <!-- Header section containing logo -->
+        <header class="mdl-layout__header mdl-color-text--white mdl-header-bg">
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet">
+          <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet">
+            <h5 class="left-align">
+              <img class="mixpose-navbar-logo" src="/img/mixpose-bw.svg" alt="logo">
+            </h5>
+          </div>
+      </header>
+
+
+    <div id="banner">
+      <button type="button" class="btn-close-banner close pull-left" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div id="banner-content" class="center-align">
+        All students are muted entire lesson. <span class="hide-on-small-only">Google Chrome works best.</span>
+      </div>
+    </div>
+
+    <main class="mdl-layout__content mdl-color--grey-100" style="padding-bottom: 100px;">
+  
+      <div class="container-mixpose main-content">
+        <div class="row" style="width: 100%;height: 100%;">
+          <div class="">
+            <!-- attendees -->
+            <div class="col s12 m12 l9">
+              <div id="stream-card">
+                <!-- <video id="teacherStream" controls></video> -->
+                  <video-js id=instructor-video 
+                            width="1000"
+                            liveui="true"
+                            auto
+                            poster="{{metaTags.backgroundurl}}"
+                            controls                            
+                            aspectRatio="16:9"
+                            preload="auto"
+                            >
+                    <source
+                       src="{{data.StreamUrl}}"
+                       type="application/x-mpegURL">
+                  </video-js>
+
+                  <div class="">
+                    <div class="owl-carousel-button-container" style="position: relative; display: none;">
+                      <button class="btn btn-autoplay-owl-carousel right autoPlayCarousel" style="display: none;">autoplay carousel (5 sec)</button>
+                      <button class="btn btn-autoplay-owl-carousel right stopAutoPlayCarousel">stop autoplay carousel</button>
+                    </div>
+
+                    <div class="owl-carousel-new owl-centered owl-carousel owl-theme">
+                      <div class="item owl-carousel-local-stream">
+                        <div class="">
+                          <div class="video-view" style="background: greenyellow;
+                          color: white;
+                          padding: 10px;">
+                            <h6 style="position: absolute;
+                              z-index: 99;
+                              left: 20px;">
+                              <i id="video-icon" class="fas fa-video fa-1x" style="margin-bottom: 16px;"></i> 
+                              Your stream:
+                            </h6>
+                            
+                            <div id="local_stream" class="video-placeholder">
+                            </div>
+                          </div>
+                          <div id="local_video_info" class="video-profile hide"></div>
+                          <div id="video_autoplay_local" class="autoplay-fallback hide"></div>
+                        </div>
+
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                <div id="buttons">
+                  <div class="row">
+                    <div class="col s12 m12 l6">
+                      <button class="btn btn-raised btn-primary waves-effect waves-light" id="join">JOIN STREAM</button>
+                      <button class="btn btn-raised btn-primary waves-effect waves-light" id="leave">LEAVE STREAM</button>
+                      
+                      <label id="students" class="active" style="width: 200px">No one yet</label>
+                    </div>
+                    <div class="col s12 m12 l6">
+                      <!-- Switch -->
+                      <div class="switch ai-pose-switch">
+                        <label>
+                          A.I. Pose Off
+
+                          <input id="ai-pose-switch-checkbox" type="checkbox" checked>
+                          <span class="lever"></span>
+                          A.I. Pose On
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                    
+                </div>
+                <canvas id="output" >
+                <canvas id="image" />
+            </div>
+
+            <div class="col s12 m12 l3">
+              <div id="feedback-wrapper" style="display: none">
+                      <h6 id="class-end-header" class="text-center">How was the class?</h6>
+                      <div id="feedback-form">
+                      <section class='rating-widget'>
+                        
+                        <!-- Rating Stars Box -->
+                        <div class='rating-stars text-center'>
+                          <ul id='stars'>
+                            <li class='star' title='Poor' data-value='1'>
+                              <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='Fair' data-value='2'>
+                              <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='Good' data-value='3'>
+                              <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='Excellent' data-value='4'>
+                              <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='WOW!!!' data-value='5'>
+                              <i class='fa fa-star fa-fw'></i>
+                            </li>
+                          </ul>
+                        </div>
+                        
+                      </section>
+                      <div id="tech-issue-box" class="rating-checkbox" style="display: none">
+                        <input type="checkbox" name="checkbox" id="checkbox_technical">
+                         <label for="checkbox">Was there any technical issues?</label>
+                       </div>
+                       <div class="row" id="wrapper_note">
+                          <div class="input-field col s12">
+                            <input id="feedback" type="text" autocomplete="off" class="validate">
+                            <label for="feedback">Private anonymous feedback</label>
+                            <div class="panel panel-danger" id="errors" style='display: none;'>       
+                            </div>
+                          </div>
+                        </div>
+                        <div id="wrapper_sign_up" class="row">
+                          <div class="col s12" style="text-align: center">
+                              <button class="btn btn-default btn-mixpose" style="width: 45%;" id="submit_feedback">Submit</button>
+                          </div>
+                        </div>
+                      </div>
+              </div>
+
+              <!-- class info -->
+              <ul class="collapsible" style="margin-top: 21px;">
+                <li class="active collapsible-info">
+                  <div class="collapsible-header" style="position: relative;">
+                    <i class="material-icons" style="margin-top: -10px;">class</i>
+                    Class Information
+                    <i class="material-icons arrow-icon up">arrow_drop_up</i>
+                    <i class="material-icons arrow-icon down hide">arrow_drop_down</i>
+                  </div>
+                  <div class="collapsible-body">
+                    <div>
+                          <img style="
+                                  height: 75px;
+                                  width: 75px;
+                                  overflow: hidden;
+                                  object-fit: cover;
+                                  z-index: 99;
+                                  border-radius: 50%;"
+                                  src="{{data.ThumbnailUrl}}">
+
+                      <h6 id="class-name">Hatha Level 3</h6>
+                      <span id="class_schedule_instructor_name">
+                        <span class="material-icons md-24">
+                          account_box
+                        </span>
+                        <span id="instructor-name">Sera Underwood</span>
+                      </span><br>
+                      <span id="class_schedule_date"></span><br>
+                      <span id="class_schedule_time"></span><br>
+                      <span id="class_schedule_duration">
+                        <span class="material-icons md-24">
+                          timer
+                        </span>
+                        60 minutes
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+              <div>
+                <div class="fb-group" data-href="https://www.facebook.com/groups/MixPose/" 
+                data-adapt-container-width="true" data-show-social-context="false" data-show-metadata="false"></div>
+              </div>
+
+            </div>
+          </div>
+
+          <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="iosModal" class="modal center-align">
+        <div class="modal-content">
+          <button class="modal-close btn-flat" style="position:absolute;top:0;right:0;">x</button>
+          <h4>Hello!</h4>
+          <h6>Seems like you are on an iOS device but we aren't optimized for mobile web.<br><br>
+
+            For the best experience, early beta iOS app is at: <br>
+            <a class="break-word" href="https://testflight.apple.com/join/QCkmOttG">
+            https://testflight.apple.com/join/QCkmOttG</a>
+          </h6>
+          <h6>or</h6>
+          <h6>desktop browser is at: <span class="text-green">mixpose.com</span><br>
+          (Chrome works best)</h6>          
+          <img src="/img/mixpose-ai.png" alt="" style="max-width: 250px; height: auto;">
+        </div>
+      </div>      
+      
+    </main>
+    <footer class="page-footer page-footer-mixpose">
+      <div class="footer-copyright footer-copyright-mixpose">
+        <div class="container">                    
+          © 2020 MixPose
+          <span class="right questions-comments">
+            <i class="fas fa-comments"></i>
+              Questions, comments or feedback at: 
+                <a class="contact-email grey-text text-lighten-4" href="javascript: void(0)">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                    contact@mixpose.com
+                </a>
+          </span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="/js/base.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/materialize.min.js"></script>
+  <script src="/js/AgoraRTCSDK-3.1.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
+
+  <script src="/js/values.js"></script>
+  <script src="/js/class.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/video.js@7.8.3/dist/video.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@videojs/http-streaming@1.11.2/dist/videojs-http-streaming.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls.js@3.2.0/dist/videojs-contrib-hlsjs.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-quality-levels@2.0.9/dist/videojs-contrib-quality-levels.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.0/dist/videojs-hls-quality-selector.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@silvermine/videojs-chromecast@1.2.1/dist/silvermine-videojs-chromecast.min.js"></script>
+
+  <script>
+    window.SILVERMINE_VIDEOJS_CHROMECAST_CONFIG = {
+        preloadWebComponents: true,
+     };
+
+    var options;
+    var isRetry = false;
+ 
+    options = {
+       controls: true,
+       techOrder: ['chromecast', 'html5' ], // You may have more Tech, such as Flash or HLS
+       plugins: {
+          chromecast: {}
+       }
+    };
+     
+    var player = videojs('instructor-video', options);
+    player.fluid(true);
+
+    player.hlsQualitySelector();
+    player.chromecast();
+    player.on('ready', () => {
+      player.tech().on(Hls.Events.ERROR, (e) => {
+          if(!isRetry && !player.paused())
+          {
+            isRetry = true;
+            setTimeout(
+              function(){
+                player.src(
+                {
+                  type: "application/x-mpegURL",
+                  src: "{{data.StreamUrl}}"
+                });
+                player.play();
+                isRetry = false;
+            }, 1000);
+          }
+      });
+    });
+
+  </script>
+
+</body>
+</html>

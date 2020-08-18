@@ -16,8 +16,8 @@ const RtmRole = require('./src/RtmTokenBuilder').Role
 
 const generateRtcToken = (className, accountName, roleValue) => {
   // Rtc Examples
-  const appID = 'id';
-  const appCertificate = 'cert';
+  const appID = 'test';
+  const appCertificate = 'test';
   const channelName = className;
   //const uid = 100;
   const account = accountName;
