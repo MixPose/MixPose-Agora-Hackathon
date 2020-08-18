@@ -1,65 +1,220 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<!doctype html>
+<!--
+  Copyright 2015 Google Inc. All rights reserved.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+      https://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="MixPose Beta Login Page">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MixPose - Log In</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.18.0/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.18.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.18.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.18.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.18.0/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="MixPose">
+    <meta name="theme-color" content="#303F9F">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MixPose">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+    <!-- Tile icon for Win8 -->
+    <meta name="msapplication-TileColor" content="#3372DF">
+    <meta name="msapplication-navbutton-color" content="#303F9F">
+
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+    <!-- App Styling -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <link rel="stylesheet" href="/css/materialize.css">  
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/mixpose.css">
+    <!-- TODO: Enable First Input Delay polyfill library. -->
+    <!--  <script type="text/javascript">!function(n,e){var t,o,i,c=[],f={passive:!0,capture:!0},r=new Date,a="pointerup",u="pointercancel";function p(n,c){t||(t=c,o=n,i=new Date,w(e),s())}function s(){o>=0&&o<i-r&&(c.forEach(function(n){n(o,t)}),c=[])}function l(t){if(t.cancelable){var o=(t.timeStamp>1e12?new Date:performance.now())-t.timeStamp;"pointerdown"==t.type?function(t,o){function i(){p(t,o),r()}function c(){r()}function r(){e(a,i,f),e(u,c,f)}n(a,i,f),n(u,c,f)}(o,t):p(o,t)}}function w(n){["click","mousedown","keydown","touchstart","pointerdown"].forEach(function(e){n(e,l,f)})}w(n),self.perfMetrics=self.perfMetrics||{},self.perfMetrics.onFirstInputDelay=function(n){c.push(n),s()}}(addEventListener,removeEventListener);</script> -->
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="/__/firebase/7.15.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.15.0/firebase-analytics.js"></script>
+  <script src="/__/firebase/7.15.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.15.0/firebase-functions.js"></script>
+  <script src="/__/firebase/7.15.0/firebase-storage.js"></script>
+  <script src="/__/firebase/7.15.0/firebase-messaging.js"></script>
+  <script src="/__/firebase/7.15.0/firebase-database.js"></script>
+  <script src="/__/firebase/7.15.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.15.0/firebase-performance.js"></script>
+  <script src="/__/firebase/init.js"></script>
+
+<body class="mixpose-theme login-page">
+    <span id="ThreeJsCanvas"></span>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+        <header class="mdl-layout__header mdl-color-text--white mdl-header-bg">
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet">
+          <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet">
+            <h5 class="left-align">
+              <img class="mixpose-navbar-logo" src="/img/mixpose-bw.svg" alt="logo">
+            </h5>
+          </div>
+      </header>
+
+
+
+        <!-- <div id="banner">
+            <button type="button" class="btn-close-banner close pull-left" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div id="banner-content" class="center-align">
+                Please use Google Chrome (not on mobile phone)
+            </div>
+        </div> -->
+
+        <main class="mdl-layout__content">
+            <div style="display: none;" class="login-animation center text-center">
+                <div id="ThreeJsCanvasTwirl" class="center text-center"></div>
+                <p>Logging in...</p>
+            </div>
+            <div class="container-mixpose container main-content login-panel">
+                <!-- particles.js container -->
+                <span id="particles-js"></span>
+                
+                <div class="container">                    
+                    <div class="row login-information-wrapper flex-s">
+                        <div class="col s12 m6 l6 box-a">
+                            <div class="login-information">
+                                <div class="">
+                                    <div class="login-information-text">
+                                        <h6 class="roboto-slab mb-3">
+                                            <i class="fas fa-film"></i>
+                                            Live Stream Lessons
+                                        </h6>
+                                        <p class="mb-5">
+                                            Transform at-home yoga sessions with live interactive feedback from yoga instructors
+                                        </p>
+
+                                        <h6 class="roboto-slab mb-3">
+                                            <i class="far fa-calendar-alt"></i>
+                                            Lessons everyday, multiple times a day
+                                        </h6>
+                                        <p class="mb-5">Our instructors are passionate to share their practice and feedback near real-time</p>
+
+                                        <h6 class="roboto-slab mb-3">
+                                            <i class="fas fa-users"></i>
+                                            Join private or public
+                                        </h6>
+                                        <p class="mb-5">Join privately with just the instructor being able to view you, or join to follow along with others publicly.</p>
+
+                                        <p>
+                                            <a class="text-green" target="_blank" href="/faq/">FAQ</a>
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 l6 box-b">
+                            <div class="card">
+                                <form action="/helloContent" method="POST" enctype="application/x-www-form-urlencoded">
+                                    <div class="card-content">
+                                        <h5 class="text-center my-0 mx-2">Log In</h5>
+                                        <hr>
+                                        <!-- SIGN IN WITH GOOGLE -->
+                                        <div class="text-center row">
+                                            <div class="col s12">
+                                                <button id="google-sign-in" class="btn btn-mixpose btn-default btn-round btn-100">
+                                                    <i class="fab fa-google-plus-g"></i>
+                                                    Sign-in with Google
+                                                </button>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </form>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+                        <div class="mdl-snackbar__text"></div>
+                        <button class="mdl-snackbar__action" type="button"></button>
+                    </div>
+
+                    <!-- Cookie Modal -->
+                    <div id="cookieModal" class="modal center-align">
+                        <div class="modal-content">
+                            <button class="modal-close btn-flat" style="position:absolute;top:0;right:0;">x</button>
+                            <h4>Hey there!</h4>
+                            <h6>Please enable cookies in order to use MixPose.</h6>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </main>
+        <div id="iosModal" class="modal center-align">
+            <div class="modal-content">
+                <button class="modal-close btn-flat" style="position:absolute;top:0;right:0;">x</button>
+                <h4>Hello!</h4>
+                <h6>Seems like you are on an iOS device but we aren't optimized for mobile web.<br><br>
+
+                    For the best experience, early beta iOS app is at: <br>
+                    <a class="break-word" href="https://testflight.apple.com/join/QCkmOttG">
+                    https://testflight.apple.com/join/QCkmOttG</a>
+                </h6>
+                <h6>or</h6>
+                <h6>desktop browser is at: <span class="text-green">mixpose.com</span><br>
+                (Chrome works best)</h6>          
+            </div>
+        </div>        
+        <footer class="page-footer page-footer-mixpose">
+          <div class="footer-copyright footer-copyright-mixpose">
+              <div class="container">                    
+                  © 2020 MixPose
+                  <span class="right questions-comments">
+                      <i class="fas fa-comments"></i>
+                      Questions, comments or feedback at: 
+                      <a class="contact-email grey-text text-lighten-4" href="javascript: void(0)">
+                          <i class="fa fa-envelope" aria-hidden="true"></i>
+                             contact@mixpose.com
+                      </a>
+                  </span>
+              </div>
+          </div>
+      </footer>
+
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <script src="/js/base.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js"></script>
+</body>
 </html>
