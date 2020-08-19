@@ -84,6 +84,7 @@
   <script src="/__/firebase/7.17.0/firebase-app.js"></script>
   <script src="/__/firebase/7.17.0/firebase-analytics.js"></script>
   <script src="/__/firebase/7.17.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.17.0/firebase-functions.js"></script>
   <script src="/__/firebase/7.17.0/firebase-storage.js"></script>
   <script src="/__/firebase/7.17.0/firebase-messaging.js"></script>
   <script src="/__/firebase/7.17.0/firebase-database.js"></script>
@@ -105,16 +106,26 @@
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=283674848424788&autoLogAppEvents=1" nonce="64d3EoCt"></script>
   <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-    <!-- Header section containing logo -->
-        <header class="mdl-layout__header mdl-color-text--white mdl-header-bg">
-        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet">
-          <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet">
-            <h5 class="left-align">
-              <img class="mixpose-navbar-logo" src="/img/mixpose-bw.svg" alt="logo">
-            </h5>
-          </div>
-      </header>
 
+    <header class="mdl-layout__header mdl-color-text--white mdl-header-bg">
+      <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet">
+        <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet">
+          <h5 class="left-align">
+              <img class="mixpose-navbar-logo" src="/img/mixpose-bw-students.svg" alt="logo">
+          </h5>
+        </div>
+        <div id="user-container">
+          <div hidden id="user-pic"></div>
+          <div hidden id="user-name"></div>
+          <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+            Sign-out
+          </button>
+          <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+            <i class="material-icons">account_circle</i>Sign-in with Google
+          </button>
+        </div>
+      </div>
+    </header>
 
     <div id="banner">
       <button type="button" class="btn-close-banner close pull-left" aria-label="Close">
@@ -269,7 +280,7 @@
                                   object-fit: cover;
                                   z-index: 99;
                                   border-radius: 50%;"
-                                  src="https://mixpose.com/img/">
+                                  src="https://nyceane.github.io/fitstream/images/rsz_sera.jpg">
 
                       <h6 id="class-name">Hatha Level 3</h6>
                       <span id="class_schedule_instructor_name">
@@ -278,8 +289,6 @@
                         </span>
                         <span id="instructor-name">Sera Underwood</span>
                       </span><br>
-                      <span id="class_schedule_date"></span><br>
-                      <span id="class_schedule_time"></span><br>
                       <span id="class_schedule_duration">
                         <span class="material-icons md-24">
                           timer
