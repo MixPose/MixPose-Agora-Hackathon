@@ -1,1 +1,2 @@
-var appId = '';
+var appId = 'test';
+var hlsUrl = 'hlsUrl';

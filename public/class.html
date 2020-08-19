@@ -19,25 +19,13 @@
     <meta name="format-detection" content="telephone=no">  
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{metaTags.title}}</title> 
-  <meta name="description" content="{{metaTags.description}}" />  
-  <meta name="scheduleclassid" content="{{metaTags.scheduleclassid}}" /> 
-  <meta name="instructorid" content="{{metaTags.instructorid}}" /> 
-  <meta name="friendgroupid" content="{{metaTags.friendgroupid}}" /> 
-  <meta name="classtime" content="{{metaTags.classtime}}" /> 
-  <meta name="userid" content="{{metaTags.userid}}" />
-  <meta name="kickouttime" content="{{metaTags.kickouttime}}" /> 
-  <meta name="feedbacktime" content="{{metaTags.feedbacktime}}" /> 
-
-  <meta name="eventurl" content="{{metaTags.eventurl}}" /> 
-  <meta name="useai" content="{{metaTags.useai}}" /> 
-
-    <meta property="og:title" content="{{metaTags.description}}" />
-    <meta property="og:description" content="{{metaTags.description}}" />
-    <meta property="og:image" content="{{metaTags.backgroundurl}}" />
-    <meta property="og:url" content="{{metaTags.eventurl}}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@mixpose" />
+  <title>MixPose Yoga Class</title> 
+  <meta name="description" content="hatha level 5 by Peter Ma" />  
+  <meta name="scheduleclassid" content="xxuWYpGhdcrknilQ1vRq" /> 
+  <meta name="instructorid" content="qIpzdQEKv8QkZYv6uKkwZAZ01kE3" /> 
+  <meta name="friendgroupid" content="publicxxuWYpGhdcrknilQ1vRq" /> 
+  <meta name="classtime" content="1597172400" /> 
+  <meta name="userid" content="qIpzdQEKv8QkZYv6uKkwZAZ01kE3" />
 
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -46,9 +34,6 @@
 
   <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
-
-  <!-- Web Application Manifest -->
-  <link rel="manifest" href="/manifest.json">
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -153,14 +138,11 @@
                             width="1000"
                             liveui="true"
                             auto
-                            poster="{{metaTags.backgroundurl}}"
+                            poster="https://mixpose.com/img/mixpose_place_holder_720p.png"
                             controls                            
                             aspectRatio="16:9"
                             preload="auto"
                             >
-                    <source
-                       src="{{data.StreamUrl}}"
-                       type="application/x-mpegURL">
                   </video-js>
 
                   <div class="">
@@ -287,7 +269,7 @@
                                   object-fit: cover;
                                   z-index: 99;
                                   border-radius: 50%;"
-                                  src="{{data.ThumbnailUrl}}">
+                                  src="https://mixpose.com/img/">
 
                       <h6 id="class-name">Hatha Level 3</h6>
                       <span id="class_schedule_instructor_name">
@@ -338,7 +320,6 @@
           <h6>or</h6>
           <h6>desktop browser is at: <span class="text-green">mixpose.com</span><br>
           (Chrome works best)</h6>          
-          <img src="/img/mixpose-ai.png" alt="" style="max-width: 250px; height: auto;">
         </div>
       </div>      
       
@@ -409,7 +390,7 @@
                 player.src(
                 {
                   type: "application/x-mpegURL",
-                  src: "{{data.StreamUrl}}"
+                  src: hlsUrl
                 });
                 player.play();
                 isRetry = false;
