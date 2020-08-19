@@ -22,15 +22,8 @@
   <title>MixPose Yoga Class</title> 
   <meta name="description" content="hatha level 5 by Peter Ma" />  
   <meta name="scheduleclassid" content="xxuWYpGhdcrknilQ1vRq" /> 
-  <meta name="instructorid" content="qIpzdQEKv8QkZYv6uKkwZAZ01kE3" /> 
   <meta name="friendgroupid" content="publicxxuWYpGhdcrknilQ1vRq" /> 
   <meta name="classtime" content="1597172400" /> 
-  <meta name="userid" content="qIpzdQEKv8QkZYv6uKkwZAZ01kE3" />
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/favicon/site.webmanifest">
 
   <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
@@ -69,7 +62,6 @@
   <link rel="stylesheet" href="/css/materialize.css" />
   <link rel="stylesheet" href="/css/mixpose.css" />
   <link rel="stylesheet" href="/css/videojs.css" />
-  <link rel="stylesheet" href="/css/rating.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@silvermine/videojs-chromecast@1.2.1/dist/silvermine-videojs-chromecast.css" />
 
   <!-- Chromecast SDK -->
@@ -154,6 +146,9 @@
                             aspectRatio="16:9"
                             preload="auto"
                             >
+                    <source
+                       src="your own video"
+                       type="application/x-mpegURL">
                   </video-js>
 
                   <div class="">
@@ -215,53 +210,6 @@
             </div>
 
             <div class="col s12 m12 l3">
-              <div id="feedback-wrapper" style="display: none">
-                      <h6 id="class-end-header" class="text-center">How was the class?</h6>
-                      <div id="feedback-form">
-                      <section class='rating-widget'>
-                        
-                        <!-- Rating Stars Box -->
-                        <div class='rating-stars text-center'>
-                          <ul id='stars'>
-                            <li class='star' title='Poor' data-value='1'>
-                              <i class='fa fa-star fa-fw'></i>
-                            </li>
-                            <li class='star' title='Fair' data-value='2'>
-                              <i class='fa fa-star fa-fw'></i>
-                            </li>
-                            <li class='star' title='Good' data-value='3'>
-                              <i class='fa fa-star fa-fw'></i>
-                            </li>
-                            <li class='star' title='Excellent' data-value='4'>
-                              <i class='fa fa-star fa-fw'></i>
-                            </li>
-                            <li class='star' title='WOW!!!' data-value='5'>
-                              <i class='fa fa-star fa-fw'></i>
-                            </li>
-                          </ul>
-                        </div>
-                        
-                      </section>
-                      <div id="tech-issue-box" class="rating-checkbox" style="display: none">
-                        <input type="checkbox" name="checkbox" id="checkbox_technical">
-                         <label for="checkbox">Was there any technical issues?</label>
-                       </div>
-                       <div class="row" id="wrapper_note">
-                          <div class="input-field col s12">
-                            <input id="feedback" type="text" autocomplete="off" class="validate">
-                            <label for="feedback">Private anonymous feedback</label>
-                            <div class="panel panel-danger" id="errors" style='display: none;'>       
-                            </div>
-                          </div>
-                        </div>
-                        <div id="wrapper_sign_up" class="row">
-                          <div class="col s12" style="text-align: center">
-                              <button class="btn btn-default btn-mixpose" style="width: 45%;" id="submit_feedback">Submit</button>
-                          </div>
-                        </div>
-                      </div>
-              </div>
-
               <!-- class info -->
               <ul class="collapsible" style="margin-top: 21px;">
                 <li class="active collapsible-info">
@@ -369,6 +317,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@silvermine/videojs-chromecast@1.2.1/dist/silvermine-videojs-chromecast.min.js"></script>
 
   <script>
+      var d = new Date();
+  d.setTime(d.getTime() + (30*24*60*60*1000)); //keep cookie 30 days
+  var expires = "expires=" + d.toGMTString();         
+  document.cookie = "visitName" + "=Hailin;" + expires + ";path=/;SameSite=None;Secure"; //can set SameSite=Lax also
     window.SILVERMINE_VIDEOJS_CHROMECAST_CONFIG = {
         preloadWebComponents: true,
      };

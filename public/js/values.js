@@ -1,2 +1,2 @@
-var appId = 'test';
-var hlsUrl = 'hlsUrl';
+var appId = 'your app id';
+var hlsUrl = 'your video url';

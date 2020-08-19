@@ -6,7 +6,7 @@ var tmpGroupId = getMeta("friendgroupid");
 var scheduleClassId = getMeta("scheduleclassid");
 var instructorId = getMeta("instructorid");
 var classtime = getMeta("classtime");
-var userid = getMeta('userid');
+var userid;
 var functions = firebase.functions();
 
 let carouselAutoplayIntervalId = null;
@@ -54,7 +54,6 @@ $(document).ready(function() {
   collapsibleInstructorInfo();
   setUpOwlCarouselPausePlayButtons();
   aiPoseSwitchCheckbox();
-  ratingSetup();
 });
 
 function Toastify (options) {
@@ -134,56 +133,6 @@ function autoPlayCarousel() {
   carouselAutoplayIntervalId = setInterval(function () {
     $owlCarouselNew.trigger('next.owl.carousel');
   }, 5000);
-}
-
-/**
-* setup Rating
-*/
-function ratingSetup()
-{
-      /* 1. Visualizing things on Hover - See next part for action on click */
-    $('#stars li').on('mouseover', function(){
-      var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-     
-      // Now highlight all the stars that's not after the current hovered star
-      $(this).parent().children('li.star').each(function(e){
-        if (e < onStar) {
-          $(this).addClass('hover');
-        }
-        else {
-          $(this).removeClass('hover');
-        }
-      });
-      
-    }).on('mouseout', function(){
-      $(this).parent().children('li.star').each(function(e){
-        $(this).removeClass('hover');
-      });
-    });
-    
-      
-    $('#stars li').on('click', function(){
-      var onStar = parseInt($(this).data('value'), 10); // The star currently selected
-      var stars = $(this).parent().children('li.star');
-      
-      for (i = 0; i < stars.length; i++) {
-        $(stars[i]).removeClass('selected');
-      }
-      
-      for (i = 0; i < onStar; i++) {
-        $(stars[i]).addClass('selected');
-      }
-      
-      // JUST RESPONSE (Not needed)
-      
-      var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-      if (ratingValue < 4) {
-          $('#tech-issue-box').show();
-      }
-      else {
-          $('#tech-issue-box').hide();
-      }
-    });
 }
 
 /**
@@ -363,7 +312,7 @@ function handleEvents (rtc) {
     Toast.notice("stream published success")
     console.log("stream-published");                
     setTimeout(function () {
-      toggleWebAI(JSON.parse(getMeta("useai")));
+      toggleWebAI(true)
       $owlCarouselNew.trigger('refresh.owl.carousel');
     }, 1000);
   })
@@ -390,18 +339,12 @@ function handleEvents (rtc) {
   rtc.client.on("stream-subscribed", function (evt) {
     var remoteStream = evt.stream;
     var id = remoteStream.getId();
-    if(!blockedlist.includes(id))
-    {
-      rtc.remoteStreams.push(remoteStream)
-      addView(id)
-      remoteStream.play("remote_video_" + id)
-      Toast.info("stream-subscribed remote-uid: " + id)
-      console.log("stream-subscribed remote-uid: ", id)
-    }
-    else
-    {
-      console.log('user blocked');
-    }
+    rtc.remoteStreams.push(remoteStream)
+    addView(id)
+    remoteStream.play("remote_video_" + id)
+    Toast.info("stream-subscribed remote-uid: " + id)
+    console.log("stream-subscribed remote-uid: ", id)
+    
   })
   // Occurs when the remote stream is removed; for example, a peer user calls Client.unpublish.
   rtc.client.on("stream-removed", function (evt) {
@@ -731,6 +674,7 @@ function toggleWebAI(isOn)
 
 function join()
 {
+
   var params = serializeformData();
   params.mode = 'live';
   params.codec = 'h264';
@@ -739,6 +683,7 @@ function join()
   // $('html, body').animate({scrollTop:$(document).height()}, 'slow');
   // $('.instructor-video-text').css('display', 'none');
   $('.student-local-stream').fadeIn();
+  loadOwlCarousel($owlCarouselNew);
 
   startAutoPlayOwlCarouselView();
 }
@@ -946,6 +891,7 @@ function getUserId() {
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 function authStateObserver(user) {
   if (user) { // User is signed in!
+    userid = user.uid;
     // Get the signed-in user's profile pic and name.
     var profilePicUrl = getProfilePicUrl();
     var userName = getUserName();
