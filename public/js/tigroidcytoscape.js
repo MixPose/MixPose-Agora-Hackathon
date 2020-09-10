@@ -136,7 +136,9 @@ class TigroidCytoscape {
 	// Query functions ---------------------------------------------------------
 
 	addQueryOutput(output) {
+		console.log(output);
 		if (output.hasOwnProperty("Vertices")) {
+			console.log('foo');
 			let vs = output["Vertices"];
 			for (let v in vs) {
 				this.addVertexSet(vs[v]);

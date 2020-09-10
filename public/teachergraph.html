@@ -26,28 +26,18 @@
   <script src="/__/firebase/init.js"></script>
     <title>Teacher's graph analytics</title>
 
-    <style>
-      #cy {
-        width: 1500px;
-        height: 900px;
-        display: block;
-        border: 1px solid #f0f0f0;
-        margin: 5px;
-        padding: 2px;
-      }
-    </style>
+
 </head>
 <body class="mixpose-theme lesson-page">
+                      <canvas id="historychart"></canvas>
 
   <script src="/js/base.js"></script>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-<div id="cy">
-  <script src="/js/tigroid.js"></script>
-  <script src="/js/tigroidcytoscape.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.15.2/cytoscape.min.js"></script>
   <script>
+    /*
     var settings = {
       "url": "https://mixposegraph.i.tgcloud.io:9000/query/MyGraph/GetInstructorInfo?inputInstructor={instructorid}",
       "method": "GET",
@@ -63,100 +53,63 @@
 
 
     });
+*/
+    jQuery.get('sample.txt', function(data) {
+      var jsonData = JSON.parse(data.replace('@',''));
+      console.log(jsonData[0].Students);
+      var labelData = [];
+      var classData = [];
+      for(var i = 0; i < jsonData[0].Students.length; i++)
+      {
+        //tc.addQueryOutput(jsonData[0][i]);
+        labelData.push(jsonData[0].Students[i].attributes.DisplayName);
+        classData.push(jsonData[0].Students[i].attributes.studentClassCountAccum);
+      }
+      console.log(labelData);
 
-    conn = new Tigroid({restppPort: "9000", gsPort: "9000", graphname: "MyGraph"});
+        var barChartData = {
+            labels: labelData,            
+            datasets: [
+                {
+                    label: "Students",
+                    backgroundColor:"#00cb39",
+                    borderColor:"#4b9258",
+                    borderWidth:1,
+                    fillColor: "#00cb39",
+                    strokeColor: "#00cb39",
+                    pointColor: "#00cb39",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "#00cb39",
+                    data: classData
+                }
+              ]
+            };
 
-    var tgres = document.getElementById('tgres');
-    var cy = cytoscape({
-      container: document.getElementById('cy'), // container to render in
+        var ctx = document.getElementById("historychart").getContext("2d");
+        var myNewChart = new Chart(ctx, {
+          type: 'bar',
+          data: barChartData,
+          options: {
+            responsive: true,
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Student ClassCount'
+            },            
+            scales: {
+                xAxes: [{
+                display: true
+              }]
+            }
 
-        style: [ // the stylesheet for the graph
-          {
-            selector: 'node',
-            style: {
-            'label': 'data(v_id)',
-              'color': 'black',
-              'text-valign': 'bottom',
-              'font-size': '10px',
-              'background-color': '#FFFFFF',
-              'border-width': '1px',
-              'border-color': '#808080'
-            }
-          },
-          {
-            selector: '[v_type = "v1"]',
-            style: {
-                  'background-color': '#C6E0B4',
-              },
-          },
-          {
-            selector: '[v_type = "v2"]',
-            style: {
-                  'background-color': '#FFE699',
-              },
-          },
-          {
-            selector: '[v_type = "v3"]',
-            style: {
-                  'background-color': '#FFEEF0',
-              },
-          },
-          {
-            selector: '[v_missed]',
-            style: {
-              'border-style': 'dashed'
-            }
-          },
-
-          {
-            selector: 'edge',
-            style: {
-              'width': 2,
-              'line-color': '#000',
-              'curve-style': 'bezier'
-            }
-          },
-          {
-            selector: '[directed = "true"]',
-            style: {
-                'target-arrow-color': '#000',
-                'target-arrow-shape': 'triangle'
-            }
-          },
-          {
-            selector: '[reverse_edge]',
-            style: {
-                'target-arrow-color': '#000',
-                'target-arrow-shape': 'triangle',
-                'source-arrow-color': '#808080',
-                'source-arrow-shape': 'triangle'
-            }
           }
-        ],
-
-        layout: {
-          name: 'grid',
-          rows: 1
-        }
+        });
 
     });
 
-    var tc = new TigroidCytoscape({cy: cy, strayEdge: true, revEdge: true});
-  /*
-    tc.addVertices(conn.getVertices("v1"));
-    tc.addVertices(conn.getVertices("v2"));
-    tc.addVertices(conn.getVertices("v3"));
-    tc.addEdges(conn.getEdgesByType("e_undir"));
-    tc.addEdges(conn.getEdgesByType("e_dir"));
-    tc.addEdges(conn.getEdgesByType("e_dir_rev"));
-  */
-    tc.addQueryOutput('/sample.txt');
-
-    var layout = cy.layout({
-        name: 'cose'
-      });
-
-    layout.run();
   </script>
 </div>
 </body>
